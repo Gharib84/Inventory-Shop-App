@@ -1,0 +1,78 @@
+<app-products></app-products>
+<form class="clr-form">
+  <clr-wizard #wizardlg clrWizardSize="lg">
+    <clr-wizard-title>Product</clr-wizard-title>
+
+    <clr-wizard-button [type]="'cancel'">Cancel</clr-wizard-button>
+    <clr-wizard-button [type]="'previous'">Back</clr-wizard-button>
+    <clr-wizard-button [type]="'next'">Next</clr-wizard-button>
+    <clr-wizard-button [type]="'finish'">Finish</clr-wizard-button>
+    <clr-wizard-page>
+      <ng-template clrPageTitle>Select Device Type</ng-template>
+      <div class="clr-row devices">
+        <div class="clr-col-md-6">
+          <a
+            href="javascript:void(0)"
+            class="card clickable"
+            appColors>
+            <div class="card-block">
+              <p class="card-text">
+                <clr-icon></clr-icon>
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </clr-wizard-page>
+    <clr-wizard-page>
+        <ng-template clrPageTitle>Basic Info</ng-template>
+        <span class="clr-sr-only">Tabbing through form inputs will trigger
+          validation messages to be read aloud.</span>
+        <clr-input-container>
+          <label>Product Name</label>
+          <input clrInput type="text" placeholder="Name" formControlName="name" />
+          <clr-control-error>This Field is Required!</clr-control-error>
+        </clr-input-container>
+        <!-- Toggle Switch for active -->
+        <clr-toggle-container>
+          <clr-toggle-wrapper>
+            <input type="checkbox" clrToggle value="active" 
+              formControlName="active" name="options" />
+            <label>Active</label>
+          </clr-toggle-wrapper>
+        </clr-toggle-container>
+        <!-- Textarea for Product Description -->
+        <clr-textarea-container>
+          <label for="description">Product Description</label>
+          <textarea
+            clrTextarea
+            id="description"
+            placeholder="Enter description here..."
+            formControlName="description" ></textarea>
+        </clr-textarea-container>
+        <clr-input-container>
+          <label>Product Feature</label>
+          <input clrInput type="text" placeholder="Features" 
+            formControlName="features" />
+        </clr-input-container>
+    </clr-wizard-page>
+
+    <clr-wizard-page>
+      <ng-template clrPageTitle>Expiration Info</ng-template>
+      <clr-input-container>
+        <label>Expiration Date</label>
+        <input clrInput type="text" placeholder="DD/MM/YYYY"
+          formControlName="date"/>
+      </clr-input-container>
+      <button  class="btn btn-warning"></button>
+    </clr-wizard-page>
+      <div class="container">
+        <ng-template>
+          <p>
+            succcessfully you have created a new product 
+            press finish or create another one 
+          </p>
+        </ng-template>
+      </div>
+  </clr-wizard>
+</form>
