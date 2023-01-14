@@ -107,15 +107,5 @@ export class ProductsService implements OnInit {
 
     }
   }
-
-  navigatePerProduct(id:number):any{
-    return this.router.navigate(["products", id]);
-  }
-
-  AddNewProduct(product:Product):void{
-    this.products.push(product);
-    this.router.navigateByUrl("products");
-  }
-
   
 }

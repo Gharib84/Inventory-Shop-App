@@ -1,7 +1,8 @@
-<form clrForm>
+<app-products></app-products>
+<form clrForm [formGroup]="form" (ngSubmit)="onSubmit()">
 
 <clr-wizard #wizardlg [(clrWizardOpen)]="lgOpen" clrWizardSize="lg">
-  <clr-wizard-title>Product</clr-wizard-title>
+  <clr-wizard-title>{{ editing? "Edit" : "Create"}} Product</clr-wizard-title>
 
   <clr-wizard-button [type]="'cancel'">Cancel</clr-wizard-button>
   <clr-wizard-button [type]="'previous'">Back</clr-wizard-button>

@@ -26,7 +26,7 @@ export class ProductsComponent implements OnInit {
   }
 
   navigatePerProduct(id:number):any{
-    return this.productService.navigatePerProduct(id);
+    return this.router.navigate(['product', id]);
   }
 
 }

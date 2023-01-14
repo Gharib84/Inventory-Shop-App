@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators,NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClrWizard } from "@clr/angular";
 import { Product } from 'src/app/models/product';
@@ -11,7 +11,7 @@ import { ProductsService } from 'src/app/services/products.service';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss']
 })
-export class ProductComponent {
+export class ProductComponent implements OnInit {
   deviceType: string = "tablet";
   @ViewChild("wizardlg") wizardLarge?: ClrWizard;
   mdOpen: boolean = false;
@@ -32,14 +32,31 @@ export class ProductComponent {
     name: 'Monitor',
     icon: 'display'
   }];
-  addNewProduct: FormGroup | undefined;
+  form: FormGroup;
 
-  constructor(private fb: FormBuilder, private  router: Router,private active: ActivatedRoute,private productService:ProductsService) {
-    
+  constructor(private fb: FormBuilder, private router: Router, private active: ActivatedRoute, private productService: ProductsService, form:FormGroup) {
+    this.form = form
+
+
     ClarityIcons.addIcons(userIcon);
   }
-  
 
- 
+
+  ngOnInit(): void {
+
+    this.form = this.fb.group({
+      name: ["", Validators.required],
+      active: ["", Validators.required],
+      description: ["", Validators.required],
+      features: ["", Validators.required],
+      date: ["", Validators.required]
+    })
+
+  }
+
+
+  onSubmit(){
+    console.log(this.form.value);
+  }
 
 }
