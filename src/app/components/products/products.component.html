@@ -10,7 +10,7 @@
 
         <clr-dg-row *ngFor="let p of getProductList()">
             <clr-dg-action-overflow>
-                <button class="action-item" (click)="editProduct(p.id!)">Edit</button>
+                <button class="action-item" (click)="navigatePerProduct(p.id!)">Edit</button>
                 <button class="action-item" (click)="deleteProduct(p.id!)"
                 >Delete
                 </button>
