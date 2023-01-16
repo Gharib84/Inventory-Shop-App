@@ -99,7 +99,7 @@ export class ProductsService implements OnInit {
   }
 
 
-  deleteProduct(id:number):any {
+ deleteProduct(id:number):any {
     let findIndex = this.products.findIndex((product) => product.id === id);
     if (findIndex !== -1) {
       this.products.splice(findIndex,1);
@@ -107,5 +107,7 @@ export class ProductsService implements OnInit {
 
     }
   }
-  
+  AddNewProduct(product:Product){
+    return this.products.push(product)
+  }
 }

@@ -2,7 +2,7 @@
 
 <div class="container">
     <h1>Products</h1>
-    <button class="btn btn-outline btn-sm">Add Product</button>
+    <button class="btn btn-outline btn-sm" (click)="addProduct()">Add Product</button>
     <clr-datagrid>
         <clr-dg-column clrDgField="name">Name</clr-dg-column>
         <clr-dg-column>Expiration Date</clr-dg-column>
@@ -10,7 +10,7 @@
 
         <clr-dg-row *ngFor="let p of getProductList()">
             <clr-dg-action-overflow>
-                <button class="action-item" (click)="navigatePerProduct(p.id!)">Edit</button>
+                <button class="action-item" (click)="product(p.id!)">Edit</button>
                 <button class="action-item" (click)="deleteProduct(p.id!)"
                 >Delete
                 </button>

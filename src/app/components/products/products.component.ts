@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/models/product';
 import { ProductsService } from 'src/app/services/products.service';
 @Component({
@@ -9,12 +9,16 @@ import { ProductsService } from 'src/app/services/products.service';
 })
 export class ProductsComponent implements OnInit {
 
-  constructor(private router: Router, private productService: ProductsService) {
+  prameterID:any;
+
+  constructor(private router: Router, private productService: ProductsService, private Aroute:ActivatedRoute) {
 
   }
   ngOnInit(): void {
     //this.products = JSON.parse(localStorage.getItem('products') || "");
-
+   this.Aroute.paramMap.subscribe((paramMap) => this.prameterID = paramMap.get('id'));
+   console.log(this.prameterID);
+  
   }
 
   getProductList() {
@@ -25,8 +29,12 @@ export class ProductsComponent implements OnInit {
     return this.productService.deleteProduct(id);
   }
 
-  navigatePerProduct(id:number):any{
-    return this.router.navigate(['product', id]);
-  }
+ product(id:number){
+  return this.router.navigate(['product', id]);
+ }
+
+ addProduct():any {
+  return this.router.navigate(['product/create']);
+ }
 
 }

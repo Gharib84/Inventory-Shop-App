@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators,NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClrWizard } from "@clr/angular";
 import { Product } from 'src/app/models/product';
@@ -32,31 +32,44 @@ export class ProductComponent implements OnInit {
     name: 'Monitor',
     icon: 'display'
   }];
-  form: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router, private active: ActivatedRoute, private productService: ProductsService, form:FormGroup) {
-    this.form = form
+  id!: any;
+  productForm!: FormGroup;
+  constructor(private fb: FormBuilder, private router: Router, private Aroute: ActivatedRoute, private productService: ProductsService) {
+    this.Aroute.paramMap.subscribe((paramMap) => this.id = paramMap.get('id'));
 
 
-    ClarityIcons.addIcons(userIcon);
   }
 
 
   ngOnInit(): void {
 
-    this.form = this.fb.group({
-      name: ["", Validators.required],
-      active: ["", Validators.required],
-      description: ["", Validators.required],
-      features: ["", Validators.required],
-      date: ["", Validators.required]
+    this.productForm = this.fb.group({
+      name: this.fb.control("", [Validators.required]),
+      active: this.fb.control("", [Validators.required]),
+      description: this.fb.control("", [Validators.required]),
+      expirationDate: this.fb.control("", [Validators.required]),
+      features: this.fb.control("", [Validators.required])
+    
+
+
     })
 
+    this.AddNewProduct();
+
+
   }
 
-
-  onSubmit(){
-    console.log(this.form.value);
+  navigateToProducts(): any {
+    return this.router.navigateByUrl('products');
   }
 
+  //handle form
+  AddNewProduct(): void {
+    if (this.productForm.status == "VALID") {
+      this.productService.AddNewProduct(this.productForm.value);
+      
+    } 
+
+  }
 }
