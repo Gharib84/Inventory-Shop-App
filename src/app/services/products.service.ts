@@ -1,6 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Product } from '../models/product';
 import { Router } from '@angular/router';
+import { JsonPipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -87,11 +88,11 @@ export class ProductsService implements OnInit {
   ];
 
   constructor(private router:Router) { 
-
+    this.products = JSON.parse(localStorage.getItem('products') || JSON.stringify(this.products));
   }
 
   ngOnInit(): void {
-     //this.products = JSON.parse(localStorage.getItem('products') || "");
+     
   }
 
   Products():Product[]{
@@ -103,11 +104,22 @@ export class ProductsService implements OnInit {
     let findIndex = this.products.findIndex((product) => product.id === id);
     if (findIndex !== -1) {
       this.products.splice(findIndex,1);
+      localStorage.setItem('products', JSON.stringify(this.products));
       this.router.navigateByUrl("products");
 
     }
   }
   AddNewProduct(product:Product){
-    return this.products.push(product)
+   this.products.push(product);
+   localStorage.setItem('products', JSON.stringify(this.products));
+
+  }
+
+  EditAndUpdateProduct(product:Product){
+    let productIndex = this.products.findIndex(p => p.id === product.id);
+    if (productIndex !== -1) {
+      this.products[productIndex] = product;
+      localStorage.setItem("products", JSON.stringify(this.products));
+    }
   }
 }

@@ -9,6 +9,8 @@ import { NavComponent } from './components/nav/nav.component';
 import { ProductsComponent } from './components/products/products.component';
 import { ProductComponent } from './components/product/product.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ColorsDirective } from './directives/colors.directive';
+import { EditComponent } from './components/edit/edit.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LoginComponent,
     NavComponent,
     ProductsComponent,
-    ProductComponent
+    ProductComponent,
+    ColorsDirective,
+    EditComponent
   ],
   imports: [
     BrowserModule,

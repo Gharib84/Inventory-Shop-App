@@ -34,7 +34,9 @@ export class ProductComponent implements OnInit {
   }];
 
   id!: any;
+  alertString: boolean = false;
   productForm!: FormGroup;
+  product!:Product;
   constructor(private fb: FormBuilder, private router: Router, private Aroute: ActivatedRoute, private productService: ProductsService) {
     this.Aroute.paramMap.subscribe((paramMap) => this.id = paramMap.get('id'));
 
@@ -45,17 +47,18 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
 
     this.productForm = this.fb.group({
+      id:this.fb.control(this.generateID()),
       name: this.fb.control("", [Validators.required]),
-      active: this.fb.control("", [Validators.required]),
+      active: this.fb.control(""),
       description: this.fb.control("", [Validators.required]),
       expirationDate: this.fb.control("", [Validators.required]),
       features: this.fb.control("", [Validators.required])
-    
+
 
 
     })
 
-    this.AddNewProduct();
+    
 
 
   }
@@ -68,8 +71,26 @@ export class ProductComponent implements OnInit {
   AddNewProduct(): void {
     if (this.productForm.status == "VALID") {
       this.productService.AddNewProduct(this.productForm.value);
-      
-    } 
+      this.productForm.get('name')?.setValue("");
+      this.productForm.get('active')?.setValue("");
+      this.productForm.get('description')?.setValue("");
+      this.productForm.get('expirationDate')?.setValue("");
+      this.productForm.get('features')?.setValue("");
+      this.alertString = true;
+    } else {
+      this.alertString = false;
+    }
 
   }
+
+  selectDevice(device:any){
+    this.deviceType = device.icon;
+  }
+
+
+  generateID():Number{
+    return Math.floor(Math.random() * 1000);
+  }
+  
+
 }

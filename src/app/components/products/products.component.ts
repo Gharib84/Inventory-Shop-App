@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Product } from 'src/app/models/product';
 import { ProductsService } from 'src/app/services/products.service';
 @Component({
   selector: 'app-products',
@@ -30,11 +29,13 @@ export class ProductsComponent implements OnInit {
   }
 
  product(id:number){
-  return this.router.navigate(['product', id]);
+  return this.router.navigateByUrl(`product/edit/${id}`);
  }
 
  addProduct():any {
   return this.router.navigate(['product/create']);
  }
+
+
 
 }

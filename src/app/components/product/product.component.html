@@ -1,74 +1,89 @@
 <form [formGroup]="productForm" (ngSubmit)="AddNewProduct()">
-<clr-wizard #wizard [(clrWizardOpen)]="lgOpen">
-  <clr-wizard-title>Inventory Shop App</clr-wizard-title>
-
-  <clr-wizard-button [type]="'cancel'" (click)="navigateToProducts()">Close</clr-wizard-button>
-  <clr-wizard-button [type]="'previous'">Previous</clr-wizard-button>
-  <clr-wizard-button [type]="'next'">Next</clr-wizard-button>
-  <clr-wizard-button [type]="'finish'">Done</clr-wizard-button>
-
-
-<clr-wizard-page>
-  <ng-template clrPageTitle>Select Device Type</ng-template>
-  <div class="clr-row devices">
-    <div class="clr-col-md-6" *ngFor="let item of listOfDevices">
-      <a
-        href="javascript:void(0)"
-        class="card clickable"
-        [ngClass]="{ active: item.icon === deviceType }"
-        appColors>
-        <div class="card-block">
-          <p class="card-text">
-            {{ item.name }}
-
-          </p>
+  <clr-wizard #wizard [(clrWizardOpen)]="lgOpen">
+    <clr-wizard-title>Inventory Shop App</clr-wizard-title>
+    <div *ngIf="alertString">
+      <div class="alert alert-success" role="alert">
+        <div class="alert-items">
+            <div class="alert-item static">
+                <div class="alert-icon-wrapper">
+                    <cds-icon class="alert-icon" shape="check-circle"></cds-icon>
+                </div>
+                <span class="alert-text">
+                    Product Has Been Created Successfully!
+                </span>
+            </div>
         </div>
-      </a>
     </div>
-  </div>
-</clr-wizard-page>
+    </div>
 
-  <clr-wizard-page >
+    <clr-wizard-button [type]="'cancel'" (click)="navigateToProducts()">Close</clr-wizard-button>
+    <clr-wizard-button [type]="'previous'">Previous</clr-wizard-button>
+    <clr-wizard-button [type]="'next'">Next</clr-wizard-button>
+    <clr-wizard-button [type]="'finish'" (click)="navigateToProducts()">Done</clr-wizard-button>
+    <clr-wizard-page>
+      <ng-template clrPageTitle>Select Device Type</ng-template>
+      <div class="clr-row devices">
+        <div class="clr-col-md-6" *ngFor="let item of listOfDevices">
+          <a
+            href="javascript:void(0)"
+            class="card clickable"
+            [ngClass]="{ active: item.icon === deviceType }"
+            (click)="selectDevice(item)"
+            appColors>
+            <div class="card-block">
+              <p class="card-text">
+                {{ item.name }}
+
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </clr-wizard-page>
+
+    <clr-wizard-page>
       <ng-template clrPageTitle>
         {{ editing? "Edit" : "Create"}} Product
-      </ng-template> 
+      </ng-template>
+      <clr-input-container>
+        <label>Product Name</label>
+        <input type="hidden" formControlName="id" name="id">
+        <input clrInput formControlName="name" name="productName"
+          id="productName "/>
+        <clr-control-error>This field is required!</clr-control-error>
+      </clr-input-container>
 
-     <!---- <form clrForm [formGroup]="productForm" (ngSubmit)="AddNewProduct()">-->
-        <clr-input-container>
-          <label>Product Name</label>
-          <input clrInput formControlName="name" name="productName" id="productName "/>
-          <clr-control-error>This field is required!</clr-control-error>
-        </clr-input-container>
+      <clr-toggle-container>
+        <clr-toggle-wrapper>
+          <input type="checkbox" clrToggle value="active"
+            formControlName="active" name="options" />
+          <label>Active</label>
+        </clr-toggle-wrapper>
+      </clr-toggle-container>
 
-        <clr-toggle-container>
-          <clr-toggle-wrapper>
-            <input type="checkbox" clrToggle value="active"
-              formControlName="active" name="options" />
-            <label>Active</label>
-          </clr-toggle-wrapper>
-        </clr-toggle-container>
+      <clr-textarea-container>
+        <label for="description">Product Description</label>
+        <textarea
+          clrTextarea
+          id="description"
+          placeholder="Enter description here..."
+          formControlName="description"></textarea>
+      </clr-textarea-container>
 
-        <clr-textarea-container>
-          <label for="description">Product Description</label>
-          <textarea
-            clrTextarea
-            id="description"
-            placeholder="Enter description here..."
-            formControlName="description"></textarea>
-        </clr-textarea-container>
+      <clr-input-container>
+        <label>Expiration Date</label>
+        <input clrInput type="text" placeholder="DD/MM/YYYY"
+          formControlName="expirationDate" name="expirationDate"/>
+        <clr-control-error>We need your first name for legal compliance</clr-control-error>
+      </clr-input-container>
 
-        <clr-input-container>
-          <label>Expiration Date</label>
-          <input clrInput type="text" placeholder="DD/MM/YYYY" formControlName="expirationDate" name="expirationDate"/>
-          <clr-control-error>We need your first name for legal compliance</clr-control-error>
-        </clr-input-container>
-
-        <clr-input-container>
-          <label>Product Features</label>
-          <input clrInput formControlName="features" name="features" id="features "/>
-        </clr-input-container>
-        <button type="submit" [disabled]="productForm.invalid" class="btn btn-warning">{{editing? "edit": "Create"}}</button>
-     <!--- </form>-->
-  </clr-wizard-page>
-</clr-wizard>
+      <clr-input-container>
+        <label>Product Features</label>
+        <input clrInput formControlName="features" name="features"
+          id="features "/>
+      </clr-input-container>
+      <button type="submit" [disabled]="productForm.invalid" class="btn
+        btn-warning">{{editing? "edit": "Create"}}</button>
+    </clr-wizard-page>
+  </clr-wizard>
 </form>
