@@ -1,8 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Product } from '../models/product';
 import { Router } from '@angular/router';
-import { JsonPipe } from '@angular/common';
-
 @Injectable({
   providedIn: 'root'
 })

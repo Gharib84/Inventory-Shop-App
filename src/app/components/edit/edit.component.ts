@@ -19,7 +19,7 @@ export class EditComponent implements OnInit{
 
   ngOnInit(): void {
      this.ActiveRoute.snapshot.params['edit'] == "edit";
-     this.ActiveRoute.snapshot.params['id'] == this.product.id;
+     
    
   }
 
