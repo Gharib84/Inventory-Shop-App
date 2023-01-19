@@ -4,7 +4,8 @@ import { LoginComponent } from './components/login/login.component';
 import { ProductsComponent } from './components/products/products.component';
 import { ProductComponent } from './components/product/product.component';
 import { EditComponent } from './components/edit/edit.component';
-
+import { LoginGuard } from './services/login.guard';
+import { AuthResolver } from './services/auth.resolver';
 
 const routes: Routes = [
   {
@@ -14,7 +15,7 @@ const routes: Routes = [
     path: 'login', component: LoginComponent
   },
   {
-    path: 'products', component: ProductsComponent
+    path: 'products', component: ProductsComponent,pathMatch: "full", resolve:{auth: AuthResolver}
   },
   {
     path: 'product/:id', component:ProductComponent
@@ -24,7 +25,11 @@ const routes: Routes = [
   },
   {
     path: 'product/:edit/:id', component:EditComponent
+  },
+  {
+    path: "**", redirectTo: "/login", pathMatch:"full"
   }
+    
 ];
 
 @NgModule({

@@ -11,6 +11,11 @@ export class ProductsComponent implements OnInit {
   prameterID:any;
 
   constructor(private router: Router, private productService: ProductsService, private Aroute:ActivatedRoute) {
+    this.Aroute.data.subscribe(data =>{
+      if (!data['auth']) {
+        this.router.navigateByUrl('/login');
+      }
+    })
 
   }
   ngOnInit(): void {

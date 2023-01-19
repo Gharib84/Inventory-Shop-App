@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
-
+  private admin!: string;
   constructor() {
 
   }
@@ -26,4 +26,9 @@ export class AuthService {
   isLoggedIn(): boolean {
     return this.getAdmin !== null;
   }
+
+  isLoggedInAndNotAdmin(): boolean {
+    return !(this.isLoggedIn() && this.admin === 'admin');
+  }
+
 }
