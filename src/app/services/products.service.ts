@@ -120,4 +120,13 @@ export class ProductsService implements OnInit {
       localStorage.setItem("products", JSON.stringify(this.products));
     }
   }
+
+  updateProduct(updateProduct:Product){
+    let productIndex = this.products.findIndex(product => product.id === updateProduct.id);
+    if (productIndex !== -1) {
+      this.products.splice(productIndex, 1, updateProduct);
+      localStorage.setItem("products", JSON.stringify(this.products));
+    }
+  }
+
 }

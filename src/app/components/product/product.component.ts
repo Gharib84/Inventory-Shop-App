@@ -34,22 +34,22 @@ export class ProductComponent implements OnInit {
   }];
 
   id!: any;
+  productId!: number;
   alertString: boolean = false;
   productForm!: FormGroup;
   product!: Product;
   constructor(private fb: FormBuilder, private router: Router, private Aroute: ActivatedRoute, private productService: ProductsService) {
     this.Aroute.paramMap.subscribe((paramMap) => this.id = paramMap.get('id'));
-     this.editing = this.Aroute.snapshot.params["edit"] == "edit";
-     this.id = this.Aroute.snapshot.params["id"] == "id";
-     console.log(this.id);
-    
+    this.editing = this.Aroute.snapshot.params["edit"] == "edit";
+    this.id = this.Aroute.snapshot.params["id"] == "id";
+
 
   }
 
 
   ngOnInit(): void {
 
-    
+
 
     this.productForm = this.fb.group({
       id: this.fb.control(this.generateID()),
@@ -61,8 +61,16 @@ export class ProductComponent implements OnInit {
 
 
 
+    });
+
+    this.Aroute.paramMap.subscribe(params => {
+      this.productId = +(params.get('id') || 0);
+      console.log(this.productId);
+
     })
-    
+
+
+
 
 
 
@@ -76,7 +84,11 @@ export class ProductComponent implements OnInit {
   //handle form
   AddNewProduct(): void {
     if (this.productForm.status == "VALID") {
-      this.productService.AddNewProduct(this.productForm.value);
+      if (this.productId) {
+        this.productService.updateProduct({ ...this.productForm.value, id: this.productId });
+      } else {
+        this.productService.AddNewProduct(this.productForm.value);
+      }
       this.productForm.get('name')?.setValue("");
       this.productForm.get('active')?.setValue("");
       this.productForm.get('description')?.setValue("");
@@ -87,20 +99,17 @@ export class ProductComponent implements OnInit {
       this.editing = true;
       this.alertString = false;
       this.editProduct()
-      
-
-
     }
-
   }
 
-  editProduct():void{
+
+  editProduct(): void {
     this.editing = true;
     this.productForm.value.id;
-      this.productService.EditAndUpdateProduct(this.productForm.value);
-      this.alertString = false;
-    
-    
+    this.productService.EditAndUpdateProduct(this.productForm.value);
+    this.alertString = false;
+
+
   }
 
   selectDevice(device: any) {
@@ -113,7 +122,7 @@ export class ProductComponent implements OnInit {
   }
 
 
-  
+
 
 
 }
