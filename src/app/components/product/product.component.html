@@ -1,6 +1,6 @@
 
 <form [formGroup]="productForm" (ngSubmit)="AddNewProduct()">
-  <clr-wizard #wizard [(clrWizardOpen)]="lgOpen">
+  <clr-wizard #wizard [(clrWizardOpen)]="lgOpen" *ngIf="lgOpen ? true : navigateToProducts()">
     <clr-wizard-title>Inventory Shop App</clr-wizard-title>
     <div *ngIf="alertString">
       <div class="alert alert-success" role="alert">

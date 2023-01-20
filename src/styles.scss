@@ -5,3 +5,20 @@
     color: white;
 }
 
+
+@media screen and (max-width: 768px) {
+    .clr-wizard {
+      .modal-dialog {
+        height: 100% !important;
+        width: 100% !important;
+      }
+  
+      .modal-content {
+        min-width: 100%;
+      }
+  
+      .modal-nav.clr-wizard-stepnav-wrapper {
+        display: none;
+      }
+    }
+  }
